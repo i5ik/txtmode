@@ -35,7 +35,7 @@
             const anchor = document.createElement('a');
             anchor.download = `${fileNode.name}.txtmode.txt`;
             anchor.innerText = `Download ${anchor.download}`;
-            const txtMode = reader.result.replace(/^data:*/*;base64,/, 'data:text/plain,');
+            const txtMode = reader.result.replace(/^data:\*\/\*;base64,/, 'data:text/plain,');
             anchor.href = txtMode;
             document.querySelector('section.downloads ol').insertAdjacentHTML('afterbegin','<li></li>');             
             document.querySelector('section.downloads ol li').insertAdjacentElement('afterbegin', anchor );
