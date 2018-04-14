@@ -33,10 +33,11 @@
           form.querySelector('button').innerText = 'processing...';
           e.preventDefault();
           reader.addEventListener('load', () => {
-            const anchor = document.createElement('a');
-            anchor.download = `${fileNode.name}.txtmode.txt`;
-            anchor.innerText = `Download ${anchor.download}`;
+            const [_, mime1, mime2] = reader.result.match(/^data:(.*)\/(.*);/);
             const txtMode = reader.result.replace(/^data:.*\/.*;base64,/, 'data:text/plain,');
+            const anchor = document.createElement('a');
+            anchor.download = `${fileNode.name}.txtmode_${mime1}_${mime2}.txt`;
+            anchor.innerText = `Download ${anchor.download}`;
             anchor.href = txtMode;
             document.querySelector('section.downloads ol').insertAdjacentHTML('afterbegin','<li></li>');             
             document.querySelector('section.downloads ol li').insertAdjacentElement('afterbegin', anchor );
