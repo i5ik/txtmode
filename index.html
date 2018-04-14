@@ -33,7 +33,7 @@
           e.preventDefault();
           reader.addEventListener('load', () => {
             const anchor = document.createElement('a');
-            anchor.download = `${fileNode.name}.txtmode.txt`l
+            anchor.download = `${fileNode.name}.txtmode.txt`;
             anchor.innerText = `Download ${anchor.download}`;
             const txtMode = reader.result.replace(/^data:*/*;base64,/, 'data:text/plain,');
             anchor.href = txtMode;
