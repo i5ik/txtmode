@@ -20,7 +20,7 @@
       {
         Object.assign(self, {processFile});
         
-        const form = document.currentScript.parentElement;
+        const form = document.currentScript.closest('form');
         const file = form.querySelector('#file');
         
         form.addEventListener('submit', e => processFile(e) );
