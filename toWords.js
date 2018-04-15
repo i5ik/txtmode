@@ -16,6 +16,7 @@
   }
 
   function toWords(b64s) {
+    b64s = b64s.replace(/=/g,'');
     const result = [];
     const bigrams = b64s.split('').reduce( (bgs,c,i) => ((i % 2 ? bgs.push((bgs.pop()||'')+c) : bgs.push(c)), bgs), [] );
     for( const bigram of bigrams ) {
