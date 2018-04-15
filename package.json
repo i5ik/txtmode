@@ -1,0 +1,28 @@
+{
+  "name": "txtmode",
+  "version": "1.0.0",
+  "description": "codec for files to words",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/textonly/txtmode.git"
+  },
+  "keywords": [
+    "txtmode",
+    "textonly",
+    "dosyago"
+  ],
+  "author": "@dosy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/textonly/txtmode/issues"
+  },
+  "homepage": "https://github.com/textonly/txtmode#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "npm-watch": "^0.3.0"
+  }
+}
