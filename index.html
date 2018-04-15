@@ -33,7 +33,9 @@
         function processFile(e) {
           e.preventDefault();
           const fileNode = file.files[0];
-          if ( fileNode.name.endsWith('._txtmode_.txt') ) {
+          console.log(fileNode.name);
+          if ( fileNode.name.includes('_txtmode_') && fileNode.name.endsWith('.txt') ) {
+            console.log("WOW");
             return processTxt(fileNode);
           }
           const reader = new FileReader();
