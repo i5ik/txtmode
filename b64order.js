@@ -10,7 +10,6 @@
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
   const acode = chars.split('');
   const icode = acode.reduce( (ro,c,i) => (ro[c] = i+1, ro), {} );
-  console.log(acode,icode);
 
   try {
     Object.assign( self, {b64order} );
