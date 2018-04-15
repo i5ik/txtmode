@@ -10,5 +10,8 @@
     .split(/\n+/g)
     .filter( line => line.trim().length > 0 );
 
-  fs.writeFileSync(`${process.argv[3]}.json`, JSON.stringify(lines));
+  const uniq = new Set(lines);
+  const output = [...uniq];
+
+  fs.writeFileSync(`${process.argv[3]}.json`, JSON.stringify(output));
 }

@@ -6,6 +6,7 @@
 <script src=words.js></script>
 <script src=b64order.js></script>
 <script src=toWords.js></script>
+<script src=fromWords.js></script>
 <main>
   <form>
     <p>
@@ -30,6 +31,7 @@
         form.addEventListener('submit', e => processFile(e) );
         
         function processFile(e) {
+          e.preventDefault();
           const fileNode = file.files[0];
           if ( fileNode.name.endsWith('._txtmode_.txt') ) {
             return processTxt(fileNode);
@@ -37,7 +39,6 @@
           const reader = new FileReader();
           form.querySelector('button').disabled = true;
           form.querySelector('button').innerText = 'processing...';
-          e.preventDefault();
           reader.addEventListener('load', () => {
             const [mimeDataPrefix, content] = reader.result.split(',');
             const encodedName = toWords(btoa(unescape(encodeURIComponent(fileNode.name))));
@@ -63,7 +64,6 @@
           const reader = new FileReader();
           form.querySelector('button').disabled = true;
           form.querySelector('button').innerText = 'processing...';
-          e.preventDefault();
           reader.addEventListener('load', () => {
             const [encodedName, encodedMimeDataPrefix, encodedContent] = reader.result.split('\n\n');
             const name = decodeURIComponent(escape(atob(fromWords(encodedName))));
@@ -79,7 +79,7 @@
             form.querySelector('button').disabled = false;
             form.querySelector('button').innerText = 'Process';
           });
-          reader.readAsDataURL(file);
+          reader.readAsText(file);
         }
       }
     </script>
