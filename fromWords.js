@@ -20,7 +20,6 @@
     const codes = glyphs.map( glyph => words.codes[glyph] );
     const bigrams = codes.map( code => b64o.itoa( code ) );
     const result = bigrams.join('');
-    console.log(result);
     return result;
   }
 }
