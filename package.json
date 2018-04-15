@@ -3,8 +3,19 @@
   "version": "1.0.0",
   "description": "codec for files to words",
   "main": "index.js",
+  "watch": {
+    "start": {
+      "patterns": [
+        "*"
+      ],
+      "extensions": "js,html,css",
+      "quiet": false
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "watch": "npm-watch",
+    "test": "npm run watch"
   },
   "repository": {
     "type": "git",

@@ -4,7 +4,7 @@
   const codes = glyphs.reduce( (ro,w,i) => (ro[w] = i, ro), {} );
 
   const words = {
-    glyphs, codes
+    glyphs, codes 
   };
   
   try {

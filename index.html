@@ -5,6 +5,7 @@
 <h1>txtmode &mdash; convert files to txt and back</h1>
 <script src=words.js></script>
 <script src=b64order.js></script>
+<script src=toWords.js></script>
 <main>
   <form>
     <p>
@@ -30,15 +31,24 @@
         
         function processFile(e) {
           const fileNode = file.files[0];
+          if ( fileNode.name.endsWith('._txtmode_.txt') ) {
+            return processTxt(fileNode);
+          }
           const reader = new FileReader();
           form.querySelector('button').disabled = true;
           form.querySelector('button').innerText = 'processing...';
           e.preventDefault();
           reader.addEventListener('load', () => {
-            const [_, mime1, mime2] = reader.result.match(/^data:(.*)\/(.*);/);
-            const txtMode = reader.result.replace(/^data:.*\/.*;base64,/, 'data:text/plain,');
+            const [mimeDataPrefix, content] = reader.result.split(',');
+            const encodedName = toWords(btoa(unescape(encodeURIComponent(fileNode.name))));
+            const encodedMimeDataPrefix = toWords(btoa(mimeDataPrefix));
+            const encodedContent = toWords(content);
+            const fileContent = `${encodedName}\n\n${encodedMimeDataPrefix}\n\n${encodedContent}\n\n`;
+            const txtMode = `data:text/plain;base64,${btoa(fileContent)}`;
             const anchor = document.createElement('a');
-            anchor.download = `${fileNode.name}.txtmode_${mime1}_${mime2}.txt`;
+            anchor.download = `${fileNode.name}._txtmode_.txt`;
+            // name hiding
+            // anchor.download = `${+ new Date}._txtmode_.txt`;
             anchor.innerText = `Download ${anchor.download}`;
             anchor.href = txtMode;
             document.querySelector('section.downloads ol').insertAdjacentHTML('afterbegin','<li></li>');             
@@ -47,6 +57,29 @@
             form.querySelector('button').innerText = 'Process';
           });
           reader.readAsDataURL(fileNode);
+        }
+
+        function processTxt(file) {
+          const reader = new FileReader();
+          form.querySelector('button').disabled = true;
+          form.querySelector('button').innerText = 'processing...';
+          e.preventDefault();
+          reader.addEventListener('load', () => {
+            const [encodedName, encodedMimeDataPrefix, encodedContent] = reader.result.split('\n\n');
+            const name = decodeURIComponent(escape(atob(fromWords(encodedName))));
+            const mimeDataPrefix = atob(fromWords(encodedMimeDataPrefix));
+            const content = fromWords(encodedContent);
+            const originalMode = `${mimeDataPrefix},${content}`;
+            const anchor = document.createElement('a');
+            anchor.download = `${name}`;
+            anchor.innerText = `Download ${anchor.download}`;
+            anchor.href = originalMode;
+            document.querySelector('section.downloads ol').insertAdjacentHTML('afterbegin','<li></li>');             
+            document.querySelector('section.downloads ol li').insertAdjacentElement('afterbegin', anchor );
+            form.querySelector('button').disabled = false;
+            form.querySelector('button').innerText = 'Process';
+          });
+          reader.readAsDataURL(file);
         }
       }
     </script>
