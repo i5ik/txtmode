@@ -1,9 +1,0 @@
-DONE DONE DONE
-- need to add a word at the start to see if we have even or odd number of letters 
-    therefore if the first bigram is to be half or full
-- also need to know if the icode we get from a word is < 64 and the bigram is full
-we need to add an 'A' to the start.
-
-- or we can solve both of these by just making no zero code
-so that A = 1
-
