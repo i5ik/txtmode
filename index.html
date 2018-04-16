@@ -2,24 +2,79 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width, initial-scale=1.0">
 <title>txtmode | convert files to txt and back</title>
-<h1>txtmode &mdash; convert files to txt and back</h1>
 <script src=words.js></script>
 <script src=b64order.js></script>
 <script src=toWords.js></script>
 <script src=fromWords.js></script>
+<style>
+  :root {
+    font-size: 11pt;
+  }
+  body {
+    background: #eee;
+  }
+  main {
+    background: white;
+    display: table;
+    margin: 1rem auto; 
+    border: 1px solid silver;
+    padding: 1rem;
+  }
+  button.cta {
+    font-size: 1.7rem;
+    color: white;
+    background: dodgerblue;
+    font-style: italic;
+    padding: 0.25rem;
+  }
+  .txcent {
+    text-align: center;
+  }
+  .consent {
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+  .narrow {
+    width: 60%;
+    min-width: 150px;
+    display: inline-block;
+  }
+  header {
+    background: dodgerblue;
+  }
+  h1 {
+    font-family: sans-serif;
+  }
+  label {
+    -webkit-touch-callout: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+</style>
 <main>
+  <header>
+    <h1>txtmode &mdash; convert files to txt and back</h1>
+  </header>
   <form>
-    <p>
-      <input required type=file id=file name=file>
-    <p>
-      <label>
+    <label>
+      <fieldset><legend>Add file</legend>
+        <p>
+          Add a file here to convert to txt
+          <br>
+          <input required type=file id=file name=file>
+          <br>
+          <i>Note: you can also add your txt files here to convert <strong>back to the original</strong></i>
+      </fieldset>
+    </label>
+    <p class=txcent>
+      <label class="narrow consent">
         <input required type=checkbox> 
         I agree this tool is provided as is, and I am responsible for my use of it. 
-        <br>
         The provider is not responsible for any damage incurred as a result of its use.
       </label>
-    <p>
-      <button>Process</button>
+    <p class=txcent>
+      <button class=cta>Process</button>
     <script>
       "use strict";
       {
@@ -47,6 +102,7 @@
             const fileContent = `${encodedName}\n\n${encodedMimeDataPrefix}\n\n${encodedContent}\n\n`;
             const txtMode = `data:text/plain;base64,${btoa(fileContent)}`;
             const anchor = document.createElement('a');
+            anchor.target = "_new";
             anchor.download = `${fileNode.name}._txtmode_.txt`;
             // name hiding
             // anchor.download = `${+ new Date}._txtmode_.txt`;
@@ -71,6 +127,7 @@
             const content = fromWords(encodedContent);
             const originalMode = `${mimeDataPrefix},${content}`;
             const anchor = document.createElement('a');
+            anchor.target = "_new";
             anchor.download = `${name}`;
             anchor.innerText = `Download ${anchor.download}`;
             anchor.href = originalMode;
@@ -84,11 +141,15 @@
       }
     </script>
   </form>
-  <section class=downloads>
-    <h1>Note: any files for download here will not persist beyond page reload.</h1>
-    <ol>
-    </ol>
-    <p>
-      <span class=nothing-yet>Upload a file to create more txt files to download.</span>
-  </section>
+  <fieldset><legend>Download files</legend>
+    <section class=downloads>
+      <h1>Note: any files for download here will not persist beyond page reload.</h1>
+      <ol>
+      </ol>
+      <p>
+        <span class=nothing-yet>Upload a file to create more txt files to download.</span>
+        <br>
+        You can also upload you txt files to convert them back to the original.
+    </section>
+  </fieldset>
 </main>
