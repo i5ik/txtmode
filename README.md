@@ -19,4 +19,3 @@ If you are going to block threats at least get good at detecting them like a vir
 
 And I think it's disingenuous / unscrupulous to degrade service on GMail to try to force people to use "GDrive" to send / as a gateway for files. F that seriously. That's just BS.
 
-
