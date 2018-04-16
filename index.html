@@ -114,14 +114,14 @@
         function processFile(e) {
           e.preventDefault();
           const fileNode = file.files[0];
+          if ( fileNode.name.includes('_txtmode_') && fileNode.name.endsWith('.txt') ) {
+            return processTxt(fileNode);
+          }
           if ( fileNode.size > 1000000 ) {
             const proceed = confirm('Whoa slow down there. Sorry, that file is too big for us. Are you sure you want to proceed? Your browser may crash because it runs out of memory.');
             if ( ! proceed ) {
               throw new TypeError("File too big");
             }
-          }
-          if ( fileNode.name.includes('_txtmode_') && fileNode.name.endsWith('.txt') ) {
-            return processTxt(fileNode);
           }
           const reader = new FileReader();
           form.querySelector('button').disabled = true;
